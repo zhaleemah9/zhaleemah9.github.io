@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Haleemah Zahra Inventory App</string>
+
+    <string-array name="status_options">
+        <item>In-Stock</item>
+        <item>Out of Stock</item>
+    </string-array>
+</resources>
