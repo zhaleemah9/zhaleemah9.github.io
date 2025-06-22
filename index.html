@@ -72,11 +72,36 @@
 
   <section id="enhancement1">
     <h2>Enhancement 1: Software Design and Engineering</h2>
-    <p>
-      For this enhancement...
-    </p>
-    <p>
-      <strong>See the artifact’s report and code here:</strong>
+    <p><strong>Haleemah Zahra<br>CS-499<br>05/29/2025</strong></p>
+    <p><strong>3-2 Milestone Two</strong></p>
+    <h3>Briefly describe the artifact. What is it? When was it created?</h3>
+    <p>The artifact I chose for enhancement is a mobile inventory management application I created during my CS 360: Mobile Architecture and Programming course last term. The application lets users log in, view, and manage inventory items, and conduct typical CRUD (Create, Read, Update, Delete) activities on a local SQLite database. The initial version of the program was functional, but it lacked architectural structure and had overlapping between user interface code, logic, and data handling.</p>
+    
+    <h3>Justify the inclusion of the artifact in your ePortfolio. Why did you select this item? What specific components of the artifact showcase your skills and abilities in software development? How was the artifact improved?</h3>
+    <p>I chose this item for enhancement because it allowed me to demonstrate a stronger grasp of software engineering design concepts, specifically the Model View Controller (MVC) architectural pattern. The app was more difficult to maintain, expand, and test in the previous codebase since a large portion of the logic, such as managing user actions and data manipulation, was tightly interconnected with the UI Activities.</p>
+    <p>To fix this, I changed the project's structure to follow the MVC pattern, where the program is now divided into three separate layers (model, view, and controller).</p>
+    <ul>
+      <li><strong>Model:</strong> This handles the data logic and SQLite database operations.</li>
+      <li><strong>View:</strong> This consists of the XML layout files (which remain in the res/layout directory as required by Android) and activity classes responsible for displaying data and handling user input.</li>
+      <li><strong>Controller:</strong> This is a layer with a new specialized InventoryController class that handles business logic and serves as a link between the model and the view layers.</li>
+    </ul>
+    <p>This restructure encourages separation of responsibilities, enhances code modularity, and promotes scalability and maintainability. I also restructured the current Kotlin files into appropriate packages (controller, view, and model) to match the architectural change and make the codebase simpler and more understandable to navigate.</p>
+
+    <h3>Did you meet the course outcomes you planned to meet with this enhancement in Module One? Do you have any updates to your outcome-coverage plans?</h3>
+    <p>This enhancement aligns with the following course outcomes:</p>
+    <ul>
+      <li>Design and evaluate computing solutions that solve a given problem using algorithmic principles and computer science practices and standards appropriate to its solution while managing the trade-offs involved in design choices.</li>
+      <li>Demonstrate an ability to use well-founded and innovative techniques, skills, and tools in computing practices for the purpose of implementing computer solutions that deliver value and accomplish industry-specific goals.</li>
+    </ul>
+    <p>By rebuilding this artifact with the MVC pattern, I proved my ability to use core computer science design concepts to improve an existing application. I made deliberate design trade-offs to strike a compromise between short-term goals like retaining functionality with SQLite and long-term scalability like building a structure suited for Firebase (a future enhancement). I also demonstrated my ability to design practical solutions with clean, testable, and maintainable code structures by utilizing modern development tools and techniques.</p>
+
+    <h3>Reflect on the process of enhancing and modifying the artifact. What did you learn as you were creating it and improving it? What challenges did you face?</h3>
+    <p>The process of improving the application was both tough and very worthwhile. I began by noting the flaws in the previous structure, specifically how roles were not clearly split. The activity classes were doing too much by handling both the UI and the application logic, making the app difficult to comprehend and practically impossible to unit test.</p>
+    <p>To address this, I added a new InventoryController class that handles interactions between the user interface and the data model. I also refactored existing functionality to comply with MVC standards, which included rewriting various sections of code to make sure that each layer was well defined and connected with others in a clean/organized manner. I also modified the view layer to delegate logical operations to the controller, and I packed the SQLite operations in the model layer.</p>
+    <p>One of the most difficult aspects of this development for me was rearranging the codebase while avoiding bugs. Since Android apps are tightly coupled between UI and functionality, getting rid of this dependency to make sure I had a clean design required a lot of meticulous planning. I needed to make sure that each layer communicated effectively (especially between the controller and the model) without breaking encapsulation.</p>
+    <p>My understanding of architectural design patterns in mobile development has grown as a result of this enhancement. I discovered that even a small project could benefit tremendously from following MVC principles. It also reaffirmed how important modular code is for maintainability and for making future improvements, like integrating Firebase later on, much simpler. Overall, by utilizing industry standard best practices, I definitely obtained practical skills in refactoring code, restructuring Kotlin files based on their purposes, and enhancing a mobile application's overall structure.</p>
+
+    <p><strong>See the artifact’s report and code here:</strong>
       <a href="https://github.com/zhaleemah9/zhaleemah9.github.io/tree/Enhancement-1" target="_blank">
         Enhancement 1 Branch on GitHub
       </a>
