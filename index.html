@@ -109,11 +109,30 @@
 
   <section id="enhancement2">
     <h2>Enhancement 2: Algorithms and Data Structures</h2>
-    <p>
-      For this enhancement...
-    </p>
-    <p>
-      <strong>See the artifact’s report and code here:</strong>
+
+    <h3>Artifact Overview</h3>
+    <p>The artifact is an Android inventory management application I developed initially during my CS 360: Mobile Architecture and Programming course last term. The app allows users to add, view, update, and delete inventory items stored locally in an SQLite database. The program accurately recorded basic item details such as name, amount, and category, but it did not enable regulating item expiry dates, which is an important function for inventory control in many real-world scenarios. This addition, implemented in this enhancement, included expiry date tracking features to help with inventory monitoring and management.</p>
+
+    <h3>Reason for Selection & Improvements</h3>
+    <p>I chose this item for my ePortfolio because it clearly illustrates my ability to enhance an existing program by incorporating new data structures and introducing algorithmic logic to improve its functionality and usability. To enhance the artifact, I started by modifying the data model in Item.kt to include a new property called expirationDate, which is represented as a string in "yyyy-mm-dd" format. This necessitated changes to the SQLite database schema in DatabaseHelper.kt, where I added an expiration_date field to the inventory_items table and increased the database version to accommodate schema upgrades. I also reviewed all important CRUD operations (insertInventoryItem, getAllInventoryItems, and updateInventoryItem) to ensure that expiry data is correctly saved, retrieved, and synced with the database.</p>
+    <p>Beyond the data layer, I improved the user experience by altering many XML layout files. I added an EditText to dialog_add_item.xml and dialog_item_details.xml so that users could reliably insert or alter expiration dates. I also added a new TextView to inventory_item_row.xml to display each item's expiration date in the inventory list for an easy visual reference. Moreover, I changed the main inventory layout/dashboard, activity_inventory.xml, to include an expiration column heading, ensuring clear alignment and readability.</p>
+    <p>For better usability, I also added dynamic filtering and sorting algorithms to InventoryAdapter.kt, allowing users to organize inventory items in real time based on stock status and expiry dates. I added a filter spinner and a sort button to a new control bar in activity_inventory.xml and connected them in InventoryActivity.kt with listeners that interact with the adapter's logic. This connection enables the app to respond to user selections in real time, enhancing navigation and inventory management.</p>
+    <p>These enhancements demonstrate my ability to manage changing data structures, apply algorithmic concepts to data manipulation, and synchronize data flow across the database, adapter, and user interface. I believe the artifact was significantly improved by introducing expiration tracking, increasing data visibility, and enabling responsive, user-driven sorting and filtering capabilities that will facilitate advanced inventory management functions in the future like emphasizing low stock items or making alerts for products that are about to expire.</p>
+
+    <h3>Course Outcomes Alignment</h3>
+    <p>This enhancement aligns with the following course outcomes:</p>
+    <ul>
+      <li>Design and evaluate computing solutions that solve a given problem using algorithmic principles and computer science practices and standards appropriate to its solution while managing the trade-offs involved in design choices.</li>
+    </ul>
+    <p>By including expiry date tracking and dynamic filtering and sorting algorithms, I exhibited my ability to create and assess practical computing solutions that meet real world customer needs. I carefully analyzed the trade-offs between expanding the data model and database design and preserving app performance and usability. Furthermore, the algorithms I created allow users to efficiently arrange and prioritize inventory items, demonstrating my ability to apply algorithmic concepts to data management and user interaction. This enhancement proves that I met my outcome of developing a more functioning and responsive application using strong computer science techniques.</p>
+
+    <h3>Reflection on the Enhancement Process</h3>
+    <p>Reflecting on the process of enhancing and modifying the artifact, I learned a lot about the difficulties associated with growing an existing application’s data model and functionality. One of the most essential things I learned was the need for proper planning to carry out database schema modifications. For example, updating the database version and creating the onUpgrade method to incorporate the new expiration date column without losing existing data proved to be pretty tricky. It needed me to learn how SQLite handles migrations and do thorough testing to minimize crashes/data corruption.</p>
+    <p>Additionally, working on the InventoryAdapter's filtering and sorting functions offered me experience with algorithms that effectively handle and update data shown in real time. I learnt how to connect UI components like spinners and buttons to adapter logic, so that changes in user input are promptly reflected in the inventory list. This approach helped me learn event-driven programming and how to make sure the UI state is linked with the underlying data on Android.</p>
+    <p>Another challenge was to completely incorporate the expiration date field into all CRUD processes. I had to carefully modify every method that inserts, retrieves, or changes inventory items to add this new information.</p>
+    <p>Overall, this enhancement helped me improve my abilities in data modeling, filtering and sorting algorithms, UI integration with data logic, and database upgrade management. It also underlined to me the need for modular, well-organized code in facilitating future changes. I'm now more equipped to manage more complex software features in the future thanks to this experience.</p>
+
+    <p><strong>See the artifact’s report and code here:</strong>
       <a href="https://github.com/zhaleemah9/zhaleemah9.github.io/tree/Enhancement-2" target="_blank">
         Enhancement 2 Branch on GitHub
       </a>
@@ -122,11 +141,36 @@
 
   <section id="enhancement3">
     <h2>Enhancement 3: Databases</h2>
-    <p>
-      For this enhancement...
-    </p>
-    <p>
-      <strong>See the artifact’s report and code here:</strong>
+
+    <h3>Artifact Overview</h3>
+    <p>The artifact is an Android inventory management application I developed initially during my CS 360: Mobile Architecture and Programming course last term. The app allows users to add, view, update, and delete inventory items stored locally in an SQLite database. In this enhancement, I replaced the local database with Firebase for user authentication and real-time cloud inventory management. This change enables a more scalable and modern application architecture.</p>
+
+    <h3>Reason for Selection & Improvements</h3>
+    <p>I chose this item for my ePortfolio because it illustrates my abilities to improve an application I already created using cloud based tools. Firebase integration is a significant update which required me to become familiar with asynchronous operations, real time data syncing, and user authentication (these are all essential skill sets in today's mobile development scene which is why I thought it was perfect to showcase in my ePortfolio).</p>
+    <p>This enhancement required that I changed many files in the application, specifically:</p>
+    <ul>
+      <li><strong>build.gradle (both at the app and project level):</strong> I added the necessary Firebase dependencies, including firebase-auth and firebase-database, and set up the google-services plugin to make sure Firebase was properly initialized. These adjustments were necessary to provide cloud support in the app.</li>
+      <li><strong>FirebaseUtil.kt (new file I created):</strong> I designed a centralized utility class that handles all Firebase activities. This contains user registration, login, and CRUD actions on inventory items. I also made sure that each item stored in Firebase has its own unique ID, which can then be used to quickly track and update data.</li>
+      <li><strong>Item.kt:</strong> I added an id field to the data model with a default value of null. I additionally provided default values for other properties that facilitate Firebase's object mapping and deserialization. These modifications were required to be able to access and modify inventory data stored in Firebase.</li>
+      <li><strong>InventoryActivity.kt:</strong> Here I replaced all SQLite references with calls to the Firebase utility. This included changing the way data was retrieved, displayed, and updated in the app. I also handled asynchronous Firebase data retrieval with callbacks.</li>
+      <li><strong>InventoryAdapter.kt:</strong> I changed the adapter to use Firebase's id attribute for delete and update operations. This update guaranteed that the right inventory item was changed in the cloud database and that the UI reflects these real time changes.</li>
+      <li><strong>LoginActivity.kt:</strong> I changed the login logic to utilize Firebase authentication. This not only allowed users to register and log in using their email addresses and passwords, but it also increased security and scalability. The login screen now uses FirebaseAuth to authenticate users before providing access to the inventory dashboard.</li>
+    </ul>
+    <p>These modifications demonstrate my abilities to provide secure authentication, handle cloud-based data, and redesign an application for more scale and easy maintenance.</p>
+
+    <h3>Course Outcomes Alignment</h3>
+    <p>This enhancement aligns with the following course outcomes:</p>
+    <ul>
+      <li>Demonstrate an ability to use well-founded and innovative techniques, skills, and tools in computing practices for the purpose of implementing computer solutions that deliver value and accomplish industry-specific goals.</li>
+    </ul>
+    <p>By integrating Firebase, I was able to tackle common software concerns including safe user authentication and real time data storage. I believe this enhancement added significant value to the application by allowing for multi-device access, user-specific data management, and a more flexible architecture. Using Firebase also illustrates my proficiency with modern frameworks and industry technologies, as it reflects the type of cloud-based solutions frequently used in corporate mobile apps.</p>
+
+    <h3>Reflection on the Enhancement Process</h3>
+    <p>When I reflect on the process of enhancing this artifact, I find that improving this artifact made me think beyond local solutions and adopt real time, cloud-based data management. One of the most difficult issues I faced was dealing with asynchronous data operations in Kotlin. In loadInventoryFromFirebase(), I defined a callback interface to retrieve inventory items from Firebase and update the RecyclerView after the data was retrieved. This forced me to think reactively where I was waiting for Firebase responses before altering the UI. It definitely helped me better grasp asynchronous programming and how to keep the user interface in sync with real time data changes, but it was challenging at first.</p>
+    <p>Another problem I faced was refactoring the code to replace SQLite while preserving the user experience. This needed me to have an intricate understanding of how data flows through the app. It also needed me to accurately coordinate between the user interface, data models, and backend functionality. I also had to guarantee that the app could smoothly handle permission checks, login issues, and data sync failures. All of this proved to be challenging, but it taught me a lot as well.</p>
+    <p>This technique helped me get a better understanding of creating scalable mobile apps that meet real world needs like secure login, fast updates, and ongoing data storage. I now have greater faith in my abilities to design and develop reliable Android apps that function well in real life settings while using modern tools.</p>
+
+    <p><strong>See the artifact’s report and code here:</strong>
       <a href="https://github.com/zhaleemah9/zhaleemah9.github.io/tree/Enhancement-3" target="_blank">
         Enhancement 3 Branch on GitHub
       </a>
